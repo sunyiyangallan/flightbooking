@@ -1,0 +1,33 @@
+- views folder: the three python flask files for the three types of users
+
+- templates folder: 
+	index.html: the home page for all three types of users
+	cus folder: the html templates for customer
+		buy.html: when customer chooses to buy, it displaces the sucess page
+		cus.htmL; customers' home page when they login  in
+		cusspend.html: the html for customer to check their spending, default is spending for last 6 month
+		flight.html: for customers to search flights and buy flights
+		home.html: view the customer's purchased ticket
+		login.html: the login in page
+		logout.html: the page displayed after customer click on logout
+		register.html: the page for people to register as customer
+	stf folder:
+		login.html: the login in page
+		logout.html: the page displayed after staff click on logout
+		register.html: the page for people to register as staff
+		addAirplane.htmL: the page for staff to add an airplane for his airline
+		changeStatus.html: change the status of a flight
+		createFlight.html: create a flight for the airline
+		fCustomer.html: Search customer
+		flight.html: search flight
+		searchPur.html: draw the bar  chart for count of purchased ticket
+		stf.html: home page for logined in staff
+		viewAgent; user can choose to view top 5 booking agents based on number of tickets sales for the past month and past year or top 5 booking agents based on the amount of commission received for the last year. just type anything in the form
+		viewCus: display the most frequent customer
+
+- config.py: config database
+- app.py: the main python program
+
+
+
+

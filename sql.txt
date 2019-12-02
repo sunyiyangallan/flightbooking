@@ -1,0 +1,263 @@
+customer.py:
+	register:
+    	ins = 'INSERT INTO customer VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)'
+    	insert the values into the customer table 
+
+    login:
+    	query = 'SELECT password FROM customer WHERE email = %s'
+    	get the customer's password from customer table using the email
+    	then check if the md5 version of what the customer typed is the same
+
+    home:
+    	query = "SELECT ticket_id, purchase_date FROM purchases WHERE customer_email = %s"
+    	get the customer's all purchased email
+
+    flight:
+    	query_all = "SELECT * FROM flight where departure_time >= NOW() AND departure_time < NOW() + INTERVAL 1 MONTH"
+    	find all the flight that will depart in one month
+    	-default view
+
+    search: 
+     query = "SELECT flight.airline_name as airline_name, flight.arrival_time as arrival_time, flight.status as status, flight.flight_num as flight_num, flight.departure_time as departure_time, dept.airport_name as departure_airport, dept.airport_city as departure_city, \
+                arr.airport_name as arrival_airport, arr.airport_city as arrival_city, flight.airline_name as airline, flight.price as price, flight.airplane_id as airplane_id\
+				FROM (flight, airport as dept, airport as arr) WHERE flight.departure_airport=dept.airport_name and flight.arrival_airport=arr.airport_name AND flight.status = 'upcoming'"
+     takes five input: arrival_airport, departure_airport, arrival_city, departure_city, date
+	 for each input: if not null: 
+	 	query += "AND flight.(input_name) = '%s'"%(input_name)  (Here input_name is set the same as name in database)
+	 execute query, obtain result. 
+
+    buy:
+    	query = "SELECT flight_num, airline_name FROM flight WHERE flight_num = %s"
+    	just get the airline_name for insertion
+    	ticket_ins = "INSERT INTO ticket VALUE (%s , %s , %s)"
+    	insert ticket data into ticket table
+    	purchase_ins = "INSERT INTO purchases VALUE (%s, %s, %s , %s)"
+    	also insert into purchase table
+
+    cusspend:
+    	query = "SELECT MONTH(p.purchase_date) as dates,SUM(f.price) as count FROM purchases p LEFT JOIN ticket t ON p.ticket_id = t.ticket_id LEFT JOIN flight f ON t.flight_num = f.flight_num where  MONTH(p.purchase_date)>= MONTH(date_add(NOW(),INTERVAL '-5' MONTH)) AND MONTH(p.purchase_date)<= now() AND p.customer_email = %s GROUP BY MONTH(p.purchase_date) "
+    	select the monthly total spending in the past 6 months
+
+    getcusspend:
+      if startday and endday and startyear and startmonth:
+        query = "SELECT day (p.purchase_date) as dates,SUM(f.price) as count FROM purchases p LEFT JOIN ticket t ON p.ticket_id = t.ticket_id LEFT JOIN flight f ON t.flight_num = f.flight_num where YEAR(p.purchase_date)=" + startyear + " AND MONTH(p.purchase_date)=" \
+                + startmonth + " AND DAY(p.purchase_date)>=" + startday + " AND DAY(p.purchase_date)<=" + endday + " AND p.customer_email = %s  GROUP BY DAY(ppurchase_date) "
+
+        select the daily total spending between startday and endday
+
+
+     elif startyear and startmonth and endmonth:
+        query = "SELECT MONTH(p.purchase_date) as dates,SUM(f.price) as count FROM purchases p LEFT JOIN ticket t ON p.ticket_id = t.ticket_id LEFT JOIN flight f ON t.flight_num = f.flight_num where YEAR(p.purchase_date)=" + startyear + " AND MONTH(p.purchase_date)>=" \
+                + startmonth + " AND MONTH(p.purchase_date)<=" + endmonth + " AND p.customer_email = %s GROUP BY MONTH(p.purchase_date) "
+
+    select the montly total spending between startmonth and endmonth
+
+     elif startyear and endyear:
+        query = "SELECT YEAR(p.purchase_date) as dates,SUM(f.price) as count FROM purchases p LEFT JOIN ticket t ON p.ticket_id = t.ticket_id LEFT JOIN flight f ON t.flight_num = f.flight_num where YEAR(p.purchase_date)>=" + startyear + " AND YEAR(p.purchase_date)<=" + endyear + " AND p.customer_email = %s GROUP BY YEAR(p.purchase_date) "
+
+     select the yearly total spending between startyear and endyear
+
+
+
+staff.py:
+	register:
+		ins = 'INSERT INTO airline_staff VALUES(%s, %s, %s, %s, %s, %s)'
+		insert the registered airline_staff info into airline_staff table
+
+	login:
+		query = 'SELECT password FROM airline_staff WHERE username = %s'
+		get the staff's password from airline_staff table
+
+	flight: 
+		query_all = "SELECT * FROM flight where departure_time >= NOW() AND departure_time < NOW() + INTERVAL 1 MONTH"
+		get all flights that are going to depart in one month
+
+	search: 
+     query = "SELECT flight.airline_name as airline_name, flight.arrival_time as arrival_time, flight.status as status, flight.flight_num as flight_num, flight.departure_time as departure_time, dept.airport_name as departure_airport, dept.airport_city as departure_city, \
+                arr.airport_name as arrival_airport, arr.airport_city as arrival_city, flight.airline_name as airline, flight.price as price, flight.airplane_id as airplane_id\
+				FROM (flight, airport as dept, airport as arr) WHERE flight.departure_airport=dept.airport_name and flight.arrival_airport=arr.airport_name AND flight.status = 'upcoming'"
+     takes five input: arrival_airport, departure_airport, arrival_city, departure_city, date
+	 for each input: if not null: 
+	 	query += "AND flight.(input_name) = '%s'"%(input_name)  (Here input_name is set the same as name in database)
+	 execute query, obtain result. 
+
+
+	createFlight:
+		query = 'SELECT airline_name FROM airline_staff WHERE username = %s and airline_name = %s'
+		get the airline that the staff belongs to
+
+		query = 'SELECT * FROM flight WHERE airline_name = %s and flight_num = %s'
+		check if the flight_num is registered
+
+		query = 'SELECT * FROM airport WHERE airport_name = %s'
+		check if the airport name exists
+
+		ins = 'INSERT INTO flight VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)'
+		insert flight info into flight table
+
+
+	changeStatus:
+		query = 'SELECT airline_name FROM airline_staff WHERE username = %s and airline_name = %s'
+		check if the airline of the stf is the same as the airline that he wants to change status
+
+		query = 'SELECT * FROM flight WHERE airline_name = %s and flight_num = %s'
+		check if the flight num exists
+
+		ins = 'UPDATE flight SET status = %s where airline_name = %s and flight_num = %s'
+		update the flight num's status
+
+	addAirplane:
+		query = 'SELECT airline_name FROM airline_staff WHERE username = %s and airline_name = %s'
+		get the airline that the staff belongs to
+
+		query = 'SELECT * FROM airplane WHERE airline_name = %s and airplane_id = %s'
+		check if the airplane_id not exist
+
+		ins = 'INSERT INTO airplane VALUES(%s, %s, %s)'
+		insert airplane info
+
+	viewAgent:
+		 query = "SELECT booking_agent_id, count(*) AS count FROM purchases where booking_agent_id is not null GROUP BY booking_agent_id"
+		 get each booking agent's total number of sale
+
+
+	searchAgent:
+	if month: 
+    	query = "SELECT booking_agent_id, count(*) AS count FROM purchases where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <=date(purchase_date) AND booking_agent_id is not null GROUP BY booking_agent_id ORDER BY count DESC LIMIT 5"
+    	if staff choose month: then get the top5 count of agent of the last 30 days
+    
+    if year:
+    	query = "SELECT booking_agent_id, count(*) AS count FROM purchases where DATE_SUB(CURDATE(), INTERVAL 365 DAY) <=date(purchase_date) AND booking_agent_id is not null GROUP BY booking_agent_id ORDER BY count DESC LIMIT 5"
+    	if staff choose yaer: then get the top5 count of agent of last 1 year
+
+    if commission:
+    	query = 'SELECT booking_agent_id, sum(price) as commission FROM purchases NATURAL JOIN ticket NATURAL JOIN flight where DATE_SUB(CURDATE(), INTERVAL 1 year) <= date(purchase_date) AND booking_agent_id is not null GROUP BY booking_agent_id ORDER BY commission DESC LIMIT 5'
+    	if staff choose commission: then get the top5 count of agent based on the total price of sales
+
+
+    viewCus:
+    	query = "SELECT T.customer_email, T.count FROM (SELECT customer_email,count(*) AS count from purchases GROUP BY customer_email) AS T where count = (SELECT max(count) from (SELECT customer_email,count(*) AS count from purchases GROUP BY customer_email)AS T2) GROUP BY customer_email "
+
+    	1. (SELECT customer_email,count(*) AS count from purchases GROUP BY customer_email) get each customer's total number of tickets bought
+
+    	2. SELECT max(count) from (SELECT customer_email,count(*) AS count from purchases GROUP BY customer_email)AS T2  get the maximum numeber of ticket bought by one customer 
+
+    	3. get the customer with maximum number of purchases of tickets
+
+
+    getPur:
+    if startday and endday and startyear  and startmonth :
+		query = "SELECT day(purchase_date) as dates ,count(*) as count from purchases where YEAR(purchase_date)=" + startyear +" AND MONTH(purchase_date)=" \
+				+ startmonth + " AND DAY(purchase_date)>="+startday+" AND DAY(purchase_date)<="+endday+"  GROUP BY DAY(purchase_date) "
+
+	only enables search for one month. 
+	if user ends startday and endday and startyear and startmonth then get daily purchase amount
+
+	elif startyear  and startmonth and endmonth:
+		query = "SELECT MONTH(purchase_date) as dates ,count(*) as count from purchases where YEAR(purchase_date)=" + startyear + " AND MONTH(purchase_date)>="\
+				+startmonth+" AND MONTH(purchase_date)<="+endmonth+" GROUP BY MONTH(purchase_date) "
+
+		if user ends startyear  and startmonth and endmonth then get monthly purchase amount
+
+
+	elif startyear and endyear:
+		query = "SELECT YEAR(purchase_date)as dates ,count(*) as count from purchases where YEAR(purchase_date)>="+startyear+" AND YEAR(purchase_date)<="+endyear+" GROUP BY YEAR(purchase_date) "
+
+	if user ends startyear  and endyear then get yearly purchase amount
+
+
+	getfCustomer:
+	    query = "SELECT a.ticket_id as at,a.customer_email as ac,a.purchase_date as ap ,b.airline_name as ba,b.flight_num as bf,c.departure_airport as cda,c.departure_time as cdt,c.arrival_airport as caa,c.arrival_time as cat,c.price as cp,c.`status` as cs,c.airplane_id as cai ,d.username as du FROM purchases a LEFT JOIN ticket b ON a.ticket_id=b.ticket_id LEFT JOIN flight c ON b.flight_num=c.flight_num LEFT JOIN airline_staff d ON d.airline_name = b.airline_name where a.customer_email =%s and d.username=%s"
+
+	    get the given customer's purchased ticket info 
+
+	pie: 
+		Get staff username.
+		que_1 = 'SELECT airline_name FROM airline_staff WHERE username = %s'
+		Get airline name. 
+		From airline name access purchases' ticket. 
+
+		que_2 = "SELECT count(DISTINCT ticket_id) as total FROM purchases NATURAL JOIN ticket WHERE booking_agent_id is NULL AND purchase_date >= DATE_ADD(CURDATE(), INTERVAL -1 MONTH) AND purchase_date <= CURDATE() and airline_name = %s"
+		Take tickets that customer purchased by himself/herself and put in data_1. 
+
+		query = "SELECT count(DISTINCT ticket_id) as total FROM purchases NATURAL JOIN ticket WHERE booking_agent_id is not NULL AND purchase_date >= DATE_ADD(CURDATE(), INTERVAL -1 MONTH) AND purchase_date <= CURDATE() and airline_name = %s" 
+		Take tickets that customer purchased by agent and put in data_2. 
+
+		query = "SELECT count(DISTINCT ticket_id) as total FROM purchases NATURAL JOIN ticket \
+			WHERE booking_agent_id is NULL AND purchase_date >= DATE_ADD(CURDATE(), INTERVAL -1 YEAR) AND purchase_date <= CURDATE() and airline_name = %s"
+		Take tickets purchased by customer themselves within a year. 
+
+		query = "SELECT count(DISTINCT ticket_id) as total FROM purchases NATURAL JOIN ticket \
+			WHERE booking_agent_id is not NULL AND purchase_date >= DATE_ADD(CURDATE(), INTERVAL -1 YEAR) AND purchase_date <= CURDATE() and airline_name = %s"
+		Take tickets purchased by agent within a year. 
+
+Agent: 
+	register:
+		ins = 'INSERT INTO booking_agent VALUES(%s, %s, %s, %s)'
+		insert the registered booking_agent info into booking_agent table
+
+	login:
+		query = 'SELECT password FROM airline_staff WHERE username = %s'
+		get the staff's password from airline_staff table
+
+	flight: 
+		query_all = "SELECT * FROM flight where departure_time >= NOW() AND departure_time < NOW() + INTERVAL 1 MONTH"
+		get all flights that are going to depart in one month
+
+	search: 
+     query = "SELECT flight.airline_name as airline_name, flight.arrival_time as arrival_time, flight.status as status, flight.flight_num as flight_num, flight.departure_time as departure_time, dept.airport_name as departure_airport, dept.airport_city as departure_city, \
+                arr.airport_name as arrival_airport, arr.airport_city as arrival_city, flight.airline_name as airline, flight.price as price, flight.airplane_id as airplane_id\
+				FROM (flight, airport as dept, airport as arr) WHERE flight.departure_airport=dept.airport_name and flight.arrival_airport=arr.airport_name AND flight.status = 'upcoming'"
+     takes five input: arrival_airport, departure_airport, arrival_city, departure_city, date
+	 for each input: if not null: 
+	 	query += "AND flight.(input_name) = '%s'"%(input_name)  (Here input_name is set the same as name in database)
+	 execute query, obtain result. 
+
+	 pre_buy: 
+	 	Take in input: customer_email for next session to proceed. Meanwhile pass airline_name and flight_num from flight page to next buy page. 
+		
+	 buy: 
+	 	Obtain agent id from session generated in log_in process. 
+		Obtain detail information of ticket from sessions. 
+		Make sure the user has signed in. 
+		Generate a ticket_id, obtain current date and time, insert value into ticket and purchases table. 
+		Pop out the airline_name session and flight_num session. 
+
+	 getCom: obtain commission fee within certain period of time. 
+	 	Obtain agent id first. 
+		See if the input field has any value, if no, output would be default value. 
+		query = 'SELECT SUM(price)*0.1 AS tot_commission FROM purchases NATURAL JOIN ticket NATURAL JOIN flight WHERE booking_agent_id=%s AND purchase_date>=%s AND purchase_date<=%s'
+		Get commission fee directly, if there is no commission fee, insert 0 in result form. 
+		Insert commission fee amount into value. Display result. 
+
+	 bar: 
+	 	Get agent id. 
+		Get end date, and calculate the start date by decreasing month for 5. If month <= 0, year-1 and month+12.
+		que_1 = "SELECT customer_email,COUNT(DISTINCT ticket_id) AS count FROM ticket NATURAL JOIN purchases WHERE booking_agent_id = %s AND purchase_date >%s AND purchase_date < DATE_ADD(%s, INTERVAL 1 MONTH) GROUP BY customer_email ORDER BY count DESC "
+		Save data into data_1. Render them to template
+
+		Only take in last five result. 
+
+		que_2 = "SELECT customer_email, SUM(price)*0.1 AS commission FROM purchases NATURAL JOIN ticket NATURAL JOIN flight WHERE booking_agent_id = %s AND purchase_date > %s AND purchase_date < DATE_ADD(%s, INTERVAL 1 MONTH) GROUP BY customer_email ORDER BY commission DESC"
+		Take commission within last month. 
+		Save data into data_2. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

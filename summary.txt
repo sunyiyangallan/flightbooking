@@ -1,0 +1,14 @@
+summary
+
+together:
+1-3
+customer:4-6,8
+
+Yiyang Sun:
+Cusomter: 7
+airline staff: 4-11, 13's query, 14
+
+Yingqiang Wang:
+booking agent: 4-9
+airline staff: 12, 13
+corrected search for all uses cases
