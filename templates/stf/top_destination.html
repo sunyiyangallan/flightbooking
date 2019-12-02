@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Top Destination</title>
+</head>
+
+<a href="/stf">Go Back</a>
+{% if comment %}
+<h1>Top Five Destination City:</h1>
+<table border="1" width="300px" height="100px" align="left">
+<thread>
+
+	<th>city</th>
+	
+</thread>
+{%for i in comment[0]%}
+	<tr>
+		<td>{{i['airport_city']}}</td>
+		
+	</tr>
+{%endfor%}
+</table>
+
+{% endif %}
+
+
+</div>

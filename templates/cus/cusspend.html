@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cusspend</title>
+</head>
+<body>
+<form action="/cus/getCusspend" method="POST">
+        <label>start year:<input type="text" name = "startyear" value=""/></label><label>start month:<input type="text" name = "startmonth" value=""/></label>start day:<input type="text" name = "startday" value=""/><br>
+        <label>end year:<input type="text" name = "endyear" value=""/></label><label>end month:<input type="text" name = "endmonth" value=""/></label>end day:<input type="text" name = "endday" value=""/><br>
+        <label><input type="submit" value = Search /></label>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+    </form>
+
+ {% if comments %}
+            <h1>My spend information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>booking_date</th>
+                <th>count</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['dates']}}</td>
+                    <td>{{ comment['count'] }}</td>
+
+                </tr>
+            {%endfor%}
+    </table><br>
+     <img src={{ url_for('static', filename='cusspend.jpg',_t=r)}} alt="count">
+        {% else %}
+            <h1>last 6 month spend:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>booking_date</th>
+                <th>count</th>
+            </thread>
+            {%for comment in c%}
+                <tr>
+                    <td>{{comment['dates']}}</td>
+                    <td>{{ comment['count'] }}</td>
+
+                </tr>
+            {%endfor%}
+    </table><br>
+     <img src={{ url_for('static', filename='cusspend6.jpg',_t=r)}} alt="count">
+    {% endif %}
+    <a href="/cus">go back </a>
+
+</body>
+</html>

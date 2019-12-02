@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>customer</title>
+</head>
+<body>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% else %}
+        <p>Welcome {{ email }}</p><br>
+        <label><a href="/cus/logout">logout</a></label>
+        <p><a href="/cus/home">view purchased ticket</a></p>
+        <p><a href="/cus/flight">view upcoming flights.</a></p>
+        <p><a href="/cus/cusspend">Customer spending chart</a></p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/stf/changeStatus" method="POST">
+	<input type="airline_name" name = "airline_name" placeholder="airline_name" required/> </br>
+	<input type="flight_num" name = "flight_num" placeholder="flight_num" required/></br>
+	<input type="status" name = "status" placeholder="status" required/></br>
+	<input type="submit" value = Login />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/stf">Go back</a>
+ 
+</body>
+
+
+</html>

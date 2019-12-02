@@ -1,0 +1,38 @@
+<div>
+    <a href="/ag/logout">logout</a>
+    {% if comments %}
+            <h1>Purchased ticket information:</h1>
+        <table>
+            <thread>
+            <th>ticket_id</th>
+            <th>airline_name</th>
+            <th>purchase_date</th>
+                <th>departure_airport</th>
+                <th>arrival_airport</th>
+                <th>arrival_time</th>
+                <th>price</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['ticket_id']}}</td>
+                    <td>{{comment['airline_name']}}</td>
+                    <td>{{ comment['purchase_date'] }}</td>
+                    <td>{{ comment['departure_airport'] }}</td>
+                    <td>{{ comment['arrival_airport'] }}</td>
+                    <td>{{ comment['arrival_time'] }}</td>
+                    <td>{{ comment['price'] }}</td>
+
+                </tr>
+            {%endfor%}
+    </table>
+        {% else %}
+        <p>not purchase ticket.</p>
+
+    {% endif %}
+
+
+</div>
+
+<div>
+    <a href="/ag/flight">buy upcoming ticket.</a>
+</div>

@@ -1,0 +1,40 @@
+
+<div>
+        <a href="/">Go Back</a>
+
+        {% if comments %}
+                <h1>Flight information:</h1>
+            <table border="1" width="300px" height="100px" align="left">
+                <thread>
+    {#            <th>ticket_id</th>#}
+                    <th>airline_name</th>
+                    <th>flight_num</th>
+                    <th>departure_airport</th>
+                    <th>departure_time</th>
+                    <th>arrival_airport</th>
+                    <th>arrival_time</th>
+                    <th>price</th>
+                    <th>status</th>
+                    <th>airplane_id</th>
+                </thread>
+                {%for comment in comments%}
+                    <tr>
+                        <td>{{comment['airline_name']}}</td>
+                        <td>{{ comment['flight_num'] }}</td>
+                        <td>{{ comment['departure_airport'] }}</td>
+                        <td>{{ comment['departure_time'] }}</td>
+                        <td>{{ comment['arrival_airport'] }}</td>
+                        <td>{{ comment['arrival_time'] }}</td>
+                        <td>{{ comment['price'] }}</td>
+                        <td>{{ comment['status'] }}</td>
+                        <td>{{ comment['airplane_id'] }}</td>
+                    </tr>
+                    {%endfor%}
+            </table>
+                {% else %}
+                <p>No flight found.</p>
+        
+            {% endif %}
+        
+        
+        </div>

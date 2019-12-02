@@ -1,0 +1,25 @@
+
+    {% if comments %}
+            <h1>most frequent customer:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>customer_email</th>
+                <th>count</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['customer_email']}}</td>
+                    <td>{{ comment['count'] }}</td>
+                    
+                </tr>
+            {%endfor%}
+    </table>
+        {% else %}
+        <p>not booking agent found.</p>
+
+    {% endif %}
+<a href="/stf">Go back</a>
+
+
+</div>

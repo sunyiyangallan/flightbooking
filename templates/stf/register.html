@@ -1,0 +1,24 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/stf/register" method="POST">
+	<input type="username" name = "username" placeholder="username" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="first_name" name = "first_name" placeholder="first_name" required/> </br>
+	<input type="last_name" name = "last_name" placeholder="last_name" required/> </br>
+	<input type="date_of_birth" name = "date_of_birth" placeholder="date_of_birth" required/> </br>
+	<input type="airline_name" name = "airline_name" placeholder="airline_name" required/> </br>
+
+	<input type="submit" value = submit />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

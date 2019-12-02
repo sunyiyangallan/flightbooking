@@ -1,0 +1,27 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/ag/register" method="POST">
+	<p>We are excited to have you join us, Agent</p><br>
+	<input type="email" name = "email" placeholder="email" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="booking_agent_id" name = "booking_agent_id" placeholder="booking_agent_id" required/> </br>
+
+	<input type="Submit" value = Submit onclick="showMessage()"/>
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+<script>
+	function showMessage(){
+	  alert("Success!")
+	}
+</script>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

@@ -1,0 +1,38 @@
+
+<div>
+    <a href="/stf">Go back</a>
+    <div>
+        <p>you can choose to view top 5 booking agents based on number of tickets sales for the past
+    month and past year or top 5 booking agents based on the amount of commission received for the last
+    year. Please type month or year or commission</p><br>
+    <form action="/stf/searchCustomer" method="POST">
+        <label>customer_email:<input type="text" name = "customer_email" value=""/></label><br>
+        <label><input type="submit" value = Search /></label>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+    </form>
+</div>
+    {% if comments %}
+            <h1>Purchased ticket information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>flight_info</th>#}
+                <th>booking_agent_id</th>
+                <th>count</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['booking_agent_id']}}</td>
+                    <td>{{ comment['count'] }}</td>
+                    
+                </tr>
+            {%endfor%}
+    </table>
+        {% else %}
+        <p>not booking agent found.</p>
+
+    {% endif %}
+
+
+</div>

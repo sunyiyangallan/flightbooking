@@ -1,0 +1,30 @@
+<html>
+<head>
+</head>
+<body>
+<form action="/cus/register" method="POST">
+	<input type="email" name = "email" placeholder="email" required/> </br>
+	<input type="name" name = "name" placeholder="name" required/> </br>
+	<input type="password" name = "password" placeholder="password" required/></br>
+	<input type="building_number" name = "building_number" placeholder="building_number" required/> </br>
+	<input type="street" name = "street" placeholder="street" required/> </br>
+	<input type="city" name = "city" placeholder="city" required/> </br>
+	<input type="state" name = "state" placeholder="state" required/> </br>
+	<input type="phone_number" name = "phone_number" placeholder="phone_number" required/> </br>
+	<input type="passport_number" name = "passport_number" placeholder="passport_number" required/> </br>
+	<input type="passport_expiration" name = "passport_expiration" placeholder="passport_expiration" required/> </br>
+	<input type="passport_country" name = "passport_country" placeholder="passport_country" required/> </br>
+	<input type="date_of_birth" name = "date_of_birth" placeholder="date_of_birth" required/> </br>
+
+	<input type="submit" value = submit />
+	{% if error %}
+		<p class="error"><strong>Error:</strong> {{error}}</p>
+	{% endif %}
+</form>
+
+<a href="/">Go back</a>
+
+</body>
+
+
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Top Five Customers</title>
+	<script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
+	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+    <h1>Top Five Customers (Ticket/Commission)</h1>
+    <div id="container_1" style="width: 75%;">
+      <canvas id="canvas_1"></canvas>
+    </div></br>
+    
+    <div id="container_2" style="width: 75%;">
+      <canvas id="canvas_2"></canvas>
+    </div>
+	
+    <script>
+    
+      var color = Chart.helpers.color;
+      var barChartData_1 = {
+            labels: [],
+            datasets: [{
+            label: 'Tickets',
+            backgroundColor: color(window.chartColors.green).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.green,
+            borderWidth: 1,
+            data: []
+          }]
+      };
+      
+      var barChartData_2 = {
+            labels: [],
+            datasets: [{
+            label: 'Commission',
+            backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+            borderColor: window.chartColors.red,
+            borderWidth: 1,
+            data: []
+        }]
+      };
+      
+      var data_1 = {{ pic_1|safe }};
+      var label_1 = {{ label_1|safe }};
+      for (var i=0; i<label_1.length; i++){
+        barChartData_1.labels.push(label_1[i]);
+        barChartData_1.datasets[0].data.push(data_1[i]);
+      }
+
+      data_2 = {{ pic_2|safe }};
+      label_2 = {{ label_2|safe }};
+
+      for (var i=0; i<l.length; i++){
+        barChartData_2.labels.push(label_2[i]);
+        barChartData_2.datasets[0].data.push(data_2[i]);
+      }
+      
+      window.onload = function() {
+        var ctx_1 = document.getElementById('canvas_1').getContext('2d');
+        var ctx_2 = document.getElementById('canvas_2').getContext('2d');
+        window.bar_1 = new Chart(ctx_1, {
+          type: 'bar',
+          data: barChartData_1,
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Top Five Customers Purchasing the Most Tickets'
+            }
+          }
+        });
+        
+        window.bar_2 = new Chart(ctx_2, {
+          type: 'bar',
+          data: barChartData_2,
+          options: {
+            responsive: true,
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Top Five Customers Paying the Most Commission'
+            }
+          }
+        });
+      };
+      
+      window.bar_1.update();
+      window.bar_2.update();
+    </script>
+    
+      {% if error %}
+      <p class="error"><strong>Error:</strong> {{error}}</p>
+      {% endif %}
+  <a href='/'>Go Back</a>
+  </body>

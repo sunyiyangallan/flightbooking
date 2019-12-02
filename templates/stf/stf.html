@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>staff</title>
+</head>
+<body>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% else %}
+        <p>Welcome {{ username }}</p><br>
+        <label><a href="/stf/logout">logout</a></label>
+        <p><a href="/stf/flight">view upcoming tickets</a></p>
+        <p><a href="/stf/createFlight">create new flight</a></p>
+        <p><a href="/stf/changeStatus">change status of a flight</a></p>
+        <p><a href="/stf/addAirplane">add an airplane</a></p>
+        <p><a href="/stf/viewAgent">view booking agents</a></p>
+        <p><a href="/stf/viewCus">view frequent customer</a></p>
+        <p><a href="/stf/fCustomer">search customer</a></p>
+        <p><a href="/stf/searchPur">search purchases</a></p>
+        <p><a href="/stf/top_destination">View Top Three Destinations</a></p>
+        <p><a href="/stf/pie_chart">View Top Three Destinations</a></p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,31 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+</head>
+
+<body>
+
+	<a href="/cus/login"><li>Login as Cusmtoer</li></a>
+	<a href="/cus/register"><li>Register as Customer</li></a>
+    <a href="/stf/login"><li>Login as Airline Staff</li></a>
+	<a href="/stf/register"><li>Register as Airline Staff</li></a>
+    <a href="/ag/login"><li>Login as Booking Agent</li></a>
+	<a href="/ag/register"><li>Register as Booking Agent</li></a>
+
+	<form action="/search" method="POST">
+        <p>You can search at the same time with the following parameters,
+            or you can specify a parameter search separately.</p><br>
+		<label>search by arrival city:<input type="text" name = "arrival_city" value=""/></label><br>
+		<label>search by departure city:<input type="text" name = "departure_city" value=""/></label><br>
+		<label>search by arrival airport:<input type="text" name = "arrival_airport" value=""/></label><br>
+		<label>search by departure airport:<input type="text" name = "departure_airport" value=""/></label><br>
+		<label>search by Date:<input type="date" name = "date" value=""/></label><br>
+		<label><input type="submit" value = Search /></label>
+	</form>
+		
+</body>
+
+</html>

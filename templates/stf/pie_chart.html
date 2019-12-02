@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Pie Chart</title>
+	<script src="https://www.chartjs.org/dist/2.7.3/Chart.bundle.js"></script>
+	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+	<style>
+	canvas {
+		-moz-user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+	Sales Comparison - Last Month:
+	<div id="canvas-holder" style="width:40%">
+		<canvas id="pie_chart1"></canvas>
+	</div>
+	Sales Comparison - Last Year:
+	<div id="canvas-holder" style="width:40%">
+		<canvas id="pie_chart2"></canvas>
+	</div>	
+	
+	<script>
+		var colorNames = Object.keys(window.chartColors);
+		var config1 = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [],
+					backgroundColor: [],
+					label: 'Last Month'
+				}],
+				labels: []
+			},
+			options: {
+				responsive: true
+			}
+		};		
+		var config2 = {
+			type: 'pie',
+			data: {
+				datasets: [{
+					data: [],
+					backgroundColor: [],
+					label: 'last year'
+				}],
+				labels: []
+			},
+			options: {
+				responsive: true
+			}
+		};
+		var data_1 = {{data_1|safe}}
+            data_2 = {{data_2|safe}}
+            label_1 = {{label_1|safe}}
+            label_2 = {{label_2|safe}}
+
+		for (var i = 0; i < d1.length; ++i) {
+			var colorName = colorNames[i % colorNames.length];
+			var newColor = window.chartColors[colorName];
+			config1.data.datasets[0].backgroundColor.push(newColor);
+			config1.data.datasets[0].data.push(data_1[i]);
+			config1.data.labels.push(label_1[i]);
+		}
+		
+		for (var i = 0; i < d2.length; ++i) {
+			var colorName = colorNames[i % colorNames.length];
+			var newColor = window.chartColors[colorName];
+			config2.data.datasets[0].backgroundColor.push(newColor);
+			config2.data.datasets[0].data.push(data_2[i]);
+			config2.data.labels.push(label_2[i]);
+		}
+		
+		window.onload = function() {
+			var ctx1 = document.getElementById('chart-area1').getContext('2d');
+			window.myPie1 = new Chart(ctx1, config1);
+			var ctx2 = document.getElementById('chart-area2').getContext('2d');
+			window.myPie2 = new Chart(ctx2, config2);
+		};
+		window.myPie1.update();
+		window.myPie2.update();
+	</script>
+	<a href='/'>Back</a>
+</body>
+
+</html>

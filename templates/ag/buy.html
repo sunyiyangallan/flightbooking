@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>result</title>
+</head>
+<body>
+    {% if error %}
+    <p>Error:{{ error }}</p>
+{% elif comment %}
+        <p>Purchase Success. <p><br>
+        <p>ticket_id:{{ comment['ticket_id'] }}</p><br>
+        <p>airline_name:{{ comment['airline_name'] }}</p><br>
+        <p>customer_email: {{  comment['customer_email']}}</p><br>
+        <p>purchase_date:{{ comment['purchase_date'] }}</p>
+{% endif %}
+    <a href="/ag">back home</a>
+</body>
+</html>

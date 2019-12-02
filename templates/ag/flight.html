@@ -1,0 +1,56 @@
+<div>
+    <a href="/ag/logout">logout</a>
+    <div>
+        <p>You can search at the same time with the following parameters,
+            or you can specify a parameter search separately.</p><br>
+    <form action="/ag/search" method="POST">
+        <label>search by arrival city:<input type="text" name = "arrival_city" value=""/></label><br>
+        <label>search by departure city:<input type="text" name = "departure_city" value=""/></label><br>
+        <label>search by arrival airport:<input type="text" name = "arrival_airport" value=""/></label><br>
+        <label>search by departure airport:<input type="text" name = "departure_airport" value=""/></label><br>
+        <label>search by Date:<input type="date" name = "date" value=""/></label><br>
+        <label><input type="submit" value = Search /></label>
+    </form>
+</div>
+    {% if comments %}
+            <h1>Flight information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>airline_name</th>
+                <th>flight_num</th>
+                <th>departure_airport</th>
+                <th>departure_time</th>
+                <th>arrival_airport</th>
+                <th>arrival_time</th>
+                <th>price</th>
+                <th>status</th>
+                <th>airplane_id</th>
+                <th>operation</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['airline_name']}}</td>
+                    <td>{{ comment['flight_num'] }}</td>
+                    <td>{{ comment['departure_airport'] }}</td>
+                    <td>{{ comment['departure_time'] }}</td>
+                    <td>{{ comment['arrival_airport'] }}</td>
+                    <td>{{ comment['arrival_time'] }}</td>
+                    <td>{{ comment['price'] }}</td>
+                    <td>{{ comment['status'] }}</td>
+                    <td>{{ comment['airplane_id'] }}</td>
+                    <td><a href="/ag/pre_buy/{{ comment['airline_name'] }}/{{ comment['flight_num'] }}">buy</a></td>
+                </tr>
+            {%endfor%}
+    </table>
+        {% else %}
+        <p>not flight found.</p>
+
+    {% endif %}
+
+
+</div>
+
+{#<div>#}
+{#    <a href="/ag/flight">buy upcoming ticket.</a>#}
+{#</div>#}

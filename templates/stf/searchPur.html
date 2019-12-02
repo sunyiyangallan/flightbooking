@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>searchPur</title>
+</head>
+<body>
+  <form action="/stf/getPur" method="POST">
+        <label>start year:<input type="text" name = "startyear" value=""/></label><label>start month:<input type="text" name = "startmonth" value=""/></label>start day:<input type="text" name = "startday" value=""/><br>
+        <label>end year:<input type="text" name = "endyear" value=""/></label><label>end month:<input type="text" name = "endmonth" value=""/></label>end day:<input type="text" name = "endday" value=""/><br>
+        <label><input type="submit" value = Search /></label>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+    </form>
+
+ {% if comments %}
+            <h1>Purchased ticket information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>booking_date</th>
+                <th>count</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['dates']}}</td>
+                    <td>{{ comment['count'] }}</td>
+
+                </tr>
+            {%endfor%}
+    </table><br>
+     <img src={{ url_for('static', filename='count.jpg',_t=r)}} alt="count">
+        {% else %}
+        <p>not booking agent found.</p>
+
+    {% endif %}
+<a href="/stf">Go back</a>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+
+<div>
+    <a href="/stf">Go back</a>
+    <div>
+    <br>
+    <form action="/stf/viewCus" method="POST">
+    <input type="airline_name" name = "airline_name" placeholder="airline_name" required/> </br>
+    <input type="airplane_id" name = "airplane_id" placeholder="airplane_id" required/></br>
+    <input type="seats" name = "seats" placeholder="seats" required/></br>
+    <input type="submit" value = Add />        <label><input type="submit" value = Search /></label>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+    </form>
+</div>
+    {% if comments %}
+            <h1>Purchased ticket information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>purchase_data</th>
+                <th>count</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['purchase_data']}}</td>
+                    <td>{{ comment['count'] }}</td>
+                    
+                </tr>
+            {%endfor%}
+    </table>
+        {% else %}
+        <p>not booking agent found.</p>
+
+    {% endif %}
+
+
+</div>

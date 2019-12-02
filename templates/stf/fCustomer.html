@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>fCustomer</title>
+</head>
+<body>
+<form action="/stf/getfCustomer" method="POST">
+        <label>email:<input type="text" name = "email" value=""/></label>
+        <label><input type="submit" value = Search /></label>
+        {% if error %}
+        <p class="error"><strong>Error:</strong> {{error}}</p>
+    {% endif %}
+    </form>
+{% if comments %}
+            <h1>Purchased ticket information:</h1>
+        <table border="1" width="300px" height="100px" align="left">
+            <thread>
+{#            <th>ticket_id</th>#}
+                <th>ticket_id</th>
+                <th>customer_email</th>
+                <th>purchase_date</th>
+                <th>airline_name</th>
+                <th>flight_num</th>
+                <th>departure_airport</th>
+                <th>departure_time</th>
+                <th>arrival_airport</th>
+                <th>arrival_time</th>
+                <th>price</th>
+                <th>status</th>
+                <th>airplane_id</th>
+                <th>username</th>
+            </thread>
+            {%for comment in comments%}
+                <tr>
+                    <td>{{comment['at']}}</td>
+                    <td>{{ comment['ac'] }}</td>
+                    <td>{{comment['ap']}}</td>
+                    <td>{{ comment['ba'] }}</td>
+                    <td>{{ comment['bf'] }}</td>
+                    <td>{{ comment['cda'] }}</td>
+                    <td>{{ comment['cdt'] }}</td>
+                    <td>{{ comment['caa'] }}</td>
+                    <td>{{ comment['cat'] }}</td>
+                    <td>{{ comment['cp'] }}</td>
+                    <td>{{ comment['cs'] }}</td>
+                    <td>{{ comment['cai'] }}</td>
+                    <td>{{ comment['du'] }}</td>
+                </tr>
+            {%endfor%}
+    </table><br>
+
+        {% else %}
+        <p>information not found.</p>
+
+    {% endif %}
+<a href="/stf">Go back</a>
+
+</body>
+</html>

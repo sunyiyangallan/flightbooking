@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Total Commission</title>
+</head>
+<body>
+    <form action="/getCom" method="POST">
+        <label>start date:<input type="date" name = "start_date" value="" placeholder="start_date" required/></label><br>
+        <label>end date:<input type="date" name = "end_date" value="" placeholder="end_date" required/></label><br>
+        <label><input type="submit" value = Search /></label>
+    </form>
+
+    {% if comment %}
+        {% for i in comment %}
+			<h2>{{i}}</h2>
+		{% endfor %}
+    {% else %}
+        <p>No commission or ticket found. </p>
+    {%endif%}
+    <a href='/'>Go Back</a>
+</body>

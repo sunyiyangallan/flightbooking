@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prepare to Buy</title>
+</head>
+<body>
+    {% if error %}
+        <p>Error:{{ error }}</p>
+    {% endif %}
+    <form action="/buy" method="POST">
+        <p>Please input customer's email:</p><br>
+        <input type='text' name="cus_email" placeholder="cus_email" required>
+        <p>Confirm?</p>
+        <input type="Submit" value="Yes"/>
+    
+    </form>
+        
+    <a href="/ag">back home</a>
+</body>
+</html>

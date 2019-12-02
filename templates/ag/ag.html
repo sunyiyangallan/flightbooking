@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>agent</title>
+</head>
+<body>
+    {% if error %}
+    <p>{{ error }}</p>
+    {% else %}
+        <p>Welcome {{ email }}</p><br>
+        <label><a href="/ag/logout">Logout</a></label>
+        <p><a href="/ag/home">View Purchased Ticket</a></p>
+        <p><a href="/ag/flight">View Upcoming Flights</a></p>
+        <p><a href="/ag/commission">View My Recent Commission</a></p>
+
+    {% endif %}
+</body>
+</html>
